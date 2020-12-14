@@ -1,0 +1,121 @@
+<ng-container  *ngIf="state == 'altas'">
+    <div class="card border-primary mx-auto my-5 " style="max-width: 18rem;">
+        <div class="card-header"><h6>Nuevo Cliente</h6></div>
+        <div class="card-body text-dark" id="cuerpo">
+          <form class="form-group" [formGroup]="lider" (ngSubmit)="onSubmit(lider.value)" >
+              <h5>ID</h5>
+              <input type="text" class="form-control" placeholder="" formControlName="id">
+
+              <h5 for="exampleInputPassword1">Nombre</h5>
+              <input type="text" class="form-control" formControlName="nombre">
+
+              <h5 for="exampleInputPassword1">Primer Apellido</h5>
+              <input type="text" class="form-control" formControlName="primApe">
+            
+              <h5 for="exampleInputPassword1">Segundo Apellido</h5>
+              <input type="text" class="form-control" formControlName="segApe">                        
+            
+              <h5 for="exampleInputPassword1">Sueldo</h5>
+              <input type="number" class="form-control" formControlName="sueldo">                        
+            
+              <h5 for="exampleInputPassword1">Teléfono</h5>
+              <input type="text" class="form-control" formControlName="telefono">                        
+
+              <h5 for="exampleInputPassword1">Horario</h5>
+              <input type="text" class="form-control" formControlName="horario">                        
+            
+              <h5 for="exampleInputPassword1">Calle</h5>
+              <input type="text" class="form-control" formControlName="calle">
+
+              <h5 for="exampleInputPassword1">Fraccionamiento</h5>
+              <input type="text" class="form-control" formControlName="fraccionamiento">
+
+              <h5 for="exampleInputPassword1">Número</h5>
+              <input type="number" class="form-control" formControlName="numero">
+
+              <h5 for="exampleInputPassword1">Ciudad</h5>
+              <input type="text" class="form-control" formControlName="ciudad">
+
+              <div class="text-center mx-auto">
+                <input type="submit" class="btn btn-primary" value="registrar">
+              </div>
+            </form>
+            
+        </div>
+        <div class="text-center mx-auto">
+            <img src="../../assets/img/logo.png" alt="" class="text-center w-75">
+        </div>
+      </div>
+</ng-container>
+<ng-container  *ngIf="state == 'bajas'">
+    <div class="p-5">
+        <table class = "table table-sm table-dark text-white">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>primer apellido</th>
+                    <th>Segundo apellido</th>
+                    <th>Sueldo</th>
+                    <th>Teléfono</th>
+                    <th>Horario</th>
+                    <th>Fraccionamiento</th>
+                    <th>Número</th>
+                    <th>Ciudad</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let item of this.list" >
+                <td>{{item.nombre}}</td>
+                <td>{{item.primApe}}</td>
+                <td>{{item.segApe}}</td>
+                <td>{{item.sueldo}}</td>
+                <td>{{item.telefono}}</td>
+                <td>{{item.horario}}</td>
+                <td>{{item.fraccionamiento}}</td>
+                <td>{{item.numero}}</td>
+                <td>{{item.ciudad}}</td>
+                <td><Button class="btn btn-warning" (click)="onDelete(item.id)">Eliminar</Button></td>
+            </tr>
+        </table>
+    </div>
+</ng-container>
+<ng-container  *ngIf="state == 'cambios'">
+    <div *ngFor="let item of this.list">
+        <form class="form-group text-white p-5" [formGroup]="liderUpdate" (ngSubmit)="onSubmit2(liderUpdate.value,item.id,item.id_direccion)" >
+            
+            <h5 for="exampleInputPassword1">Nombre - {{item.nombre}}</h5>
+            <input value={{item.nombre}} type="text" class="form-control" formControlName="nombre">
+          
+            <h5 for="exampleInputPassword1">Primer Apellido - {{item.primApe}}</h5>
+            <input value={{item.telefono}} type="text" class="form-control" formControlName="primApe">                        
+
+            <h5 for="exampleInputPassword1">Segundo Apellido - {{item.segApe}}</h5>
+            <input value={{item.telefono}} type="text" class="form-control" formControlName="segApe">
+
+            <h5 for="exampleInputPassword1">Sueldo - {{item.sueldo}}</h5>
+            <input value={{item.telefono}} type="text" class="form-control" formControlName="sueldo">
+
+            <h5 for="exampleInputPassword1">Teléfono - {{item.telefono}}</h5>
+            <input value={{item.telefono}} type="text" class="form-control" formControlName="telefono">
+
+            <h5 for="exampleInputPassword1">Horario - {{item.horario}}</h5>
+            <input value={{item.telefono}} type="text" class="form-control" formControlName="horario">
+          
+            <h5 for="exampleInputPassword1">Calle - {{item.calle}}</h5>
+            <input type="text" class="form-control" formControlName="calle">
+
+            <h5 for="exampleInputPassword1">Fraccionamiento - {{item.fraccionamiento}}</h5>
+            <input type="text" class="form-control" formControlName="fraccionamiento">
+
+            <h5 for="exampleInputPassword1">Número - {{item.numero}}</h5>
+            <input type="number" class="form-control" formControlName="numero">
+
+            <h5 for="exampleInputPassword1">Ciudad - {{item.ciudad}}</h5>
+            <input type="text" class="form-control" formControlName="ciudad">
+
+            <div class="text-center mx-auto">
+              <input type="submit" class="btn btn-primary" value="registrar">
+            </div>
+          </form>        
+    </div>
+</ng-container>
+

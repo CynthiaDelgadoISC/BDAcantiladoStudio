@@ -1,0 +1,74 @@
+<ng-container  *ngIf="state == 'altas'">
+    <div class="card border-primary mx-auto my-5 " style="max-width: 18rem;">
+        <div class="card-header"><h6>Nuevo Cliente</h6></div>
+        <div class="card-body text-dark" id="cuerpo">
+          <form class="form-group" [formGroup]="proveedor" (ngSubmit)="onSubmit(proveedor.value)" >
+              <h5>ID</h5>
+              <input type="text" class="form-control" placeholder="" formControlName="id">
+
+              <h5 for="exampleInputPassword1">Nombre</h5>
+              <input type="text" class="form-control"  formControlName="nombre">
+            
+              <h5 for="exampleInputPassword1">Sitio Web</h5>
+              <input type="text" class="form-control"  formControlName="sitio_web">  
+
+              <h5 for="exampleInputPassword1">Descripción</h5>
+              <input type="text" class="form-control"  formControlName="descripcion">  
+
+              <h5 for="exampleInputPassword1">proyecto</h5>
+              <select class="form-control" formControlName="id_proyecto">
+                <option  *ngFor="let item of this.proyectos" value="{{item.id}}">{{item.nombre}}</option>
+              </select>
+
+              <div class="text-center mx-auto">
+                <input type="submit" class="btn btn-primary" value="registrar">
+              </div>
+            </form>
+            
+        </div>
+        <div class="text-center mx-auto">
+            <img src="../../assets/img/logo.png" alt="" class="text-center w-75">
+        </div>
+      </div>
+</ng-container>
+<ng-container  *ngIf="state == 'bajas'">
+    <div class="p-5">
+        <table class = "table table-sm table-dark text-white">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Sitio web</th>                
+                    <th>Descripción</th>                
+                </tr>
+            </thead>
+            <tr *ngFor="let item of this.list" >
+                <td>{{item.nombre}}</td>
+                <td>{{item.sitio_web}}</td>
+                <td>{{item.descripcion}}</td>
+                <td><Button class="btn btn-warning" (click)="onDelete(item.id)">Eliminar</Button></td>
+            </tr>
+        </table>
+    </div>
+</ng-container>
+<ng-container  *ngIf="state == 'cambios'">
+    <div *ngFor="let item of this.list">
+        <form class="form-group text-white p-5" [formGroup]="proveedorUpdate" (ngSubmit)="onSubmit2(proveedorUpdate.value,item.id)" >
+            
+            <h5 for="exampleInputPassword1">Nombre - {{item.nombre}}</h5>
+            <input type="text" class="form-control"  formControlName="nombre">
+          
+            <h5 for="exampleInputPassword1">Sitio Web - {{item.sitio_web}}</h5>
+            <input type="text" class="form-control"  formControlName="sitio_web">
+
+            <h5 for="exampleInputPassword1">Descripción - {{item.descripcion}}</h5>
+            <input type="text" class="form-control"  formControlName="descripcion">
+        
+        
+            <div class="text-center mx-auto">
+              <input type="submit" class="btn btn-primary" value="registrar">
+            </div>
+          </form>        
+    </div>
+</ng-container>
+
+

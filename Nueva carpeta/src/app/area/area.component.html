@@ -1,0 +1,52 @@
+<ng-container  *ngIf="state == 'altas'">
+    <div class="card border-primary mx-auto my-5 " style="max-width: 18rem;">
+        <div class="card-header"><h6>Nuevo Cliente</h6></div>
+        <div class="card-body text-dark" id="cuerpo">
+          <form class="form-group" [formGroup]="area" (ngSubmit)="onSubmit(area.value)" >
+              <h5>ID</h5>
+              <input type="text" class="form-control" placeholder="" formControlName="id">
+
+              <h5 for="exampleInputPassword1">Nombre</h5>
+              <input type="text" class="form-control"  formControlName="nombre">
+
+              <div class="text-center mx-auto">
+                <input type="submit" class="btn btn-primary" value="registrar">
+              </div>
+            </form>
+            
+        </div>
+        <div class="text-center mx-auto">
+            <img src="../../assets/img/logo.png" alt="" class="text-center w-75">
+        </div>
+      </div>
+</ng-container>
+<ng-container  *ngIf="state == 'bajas'">
+    <div class="p-5">
+        <table class = "table table-sm table-dark text-white">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let item of this.list" >
+                <td>{{item.nombre_area}}</td>
+                <td><Button class="btn btn-warning" (click)="onDelete(item.id)">Eliminar</Button></td>
+            </tr>
+        </table>
+    </div>
+</ng-container>
+<ng-container  *ngIf="state == 'cambios'">
+    <div *ngFor="let item of this.list">
+        <form class="form-group text-white p-5" [formGroup]="areaUpdate" (ngSubmit)="onSubmit2(areaUpdate.value,item.id)" >
+            
+            <h5 for="exampleInputPassword1">Nombre - {{item.nombre_area}}</h5>
+            <input type="text" class="form-control"  formControlName="nombre">
+
+            <div class="text-center mx-auto">
+              <input type="submit" class="btn btn-primary" value="registrar">
+            </div>
+          </form>        
+    </div>
+</ng-container>
+
+

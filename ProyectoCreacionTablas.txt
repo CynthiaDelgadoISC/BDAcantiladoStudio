@@ -1,0 +1,152 @@
+CREATE TABLE Direccion(
+    id int NOT NULL AUTO_INCREMENT,
+    calle varchar(30) NOT NULL,
+    fraccionamiento varchar(30) NOT NULL,
+    numero int,
+    ciudad varchar(30) NOT NULL,
+    CONSTRAINT PK_DIR PRIMARY KEY (id)
+);
+
+CREATE TABLE Cliente(
+    id varchar(6) NOT NULL,
+    nombre varchar(30) NOT NULL,
+    telefono varchar(15),
+	id_direccion int NOT NULL,
+    CONSTRAINT PK_CTE PRIMARY KEY (id),
+    CONSTRAINT FK_CTE_DIR FOREIGN KEY(id_direccion) REFERENCES Direccion(id)
+);
+
+CREATE TABLE Proyecto(
+    id varchar(6) NOT NULL,
+    nombre varchar(30),
+    fecha_inicio date NOT NULL,
+    fecha_entrega date, 
+    presupuesto int,
+    ganancia_estimada int,
+    id_cliente varchar(6) NOT NULL,
+    CONSTRAINT PK_PROY PRIMARY KEY (id),
+    CONSTRAINT FK_PROY_CTE FOREIGN KEY (id_cliente) REFERENCES Cliente(id)
+);
+
+CREATE TABLE Lider(
+    id varchar(6) NOT NULL,
+    nombre varchar(20) NOT NULL,
+    primApe varchar(20) NOT NULL,
+    segApe varchar(20),
+    sueldo int,
+    telefono varchar(15),
+    horario varchar(10),
+    id_direccion int NOT NULL,
+    CONSTRAINT PK_LID PRIMARY KEY (id),
+    CONSTRAINT FK_LID_DIR FOREIGN KEY (id_direccion) REFERENCES Direccion(id)
+);
+
+ 	CREATE TABLE Administra(
+    id_proyecto varchar(6) NOT NULL,
+    id_lider varchar(6) NOT NULL,
+    CONSTRAINT PK_ADMIN PRIMARY KEY (id_proyecto, id_lider),
+    CONSTRAINT FK_ADMIN_LID FOREIGN KEY (id_lider) REFERENCES Proyecto(id),
+    CONSTRAINT FK_ADMIN_PROY FOREIGN KEY (id_proyecto) REFERENCES Lider(id)
+);
+
+CREATE TABLE Area(
+    id varchar(10) NOT NULL,
+    nombre_area varchar(30),
+    CONSTRAINT PK_AREA PRIMARY KEY (id)
+); 	
+
+CREATE TABLE Equipo_de_computo(
+    id varchar(10) NOT NULL,
+    tipo varchar(1) CHECK (tipo IN('p','l','s')),
+    costo int,
+    marca varchar(30),
+    CONSTRAINT PK_EQUICOMP PRIMARY KEY (id)
+);
+
+CREATE TABLE Empleado(
+    id varchar(6) NOT NULL,
+    nombre varchar(20) NOT NULL,
+    primApe varchar(20) NOT NULL,
+    segApe varchar(20),
+    sueldo int,
+    telefono varchar(15),
+    horario varchar(10),
+    id_direccion int NOT NULL,
+    id_area varchar(10) NOT NULL,
+    id_equipo_computo varchar(10) NOT NULL,
+    id_lider varchar(6) NOT NULL,
+    CONSTRAINT PK_EMP PRIMARY KEY (id),
+    CONSTRAINT FK_EMP_DIR FOREIGN KEY (id_direccion) REFERENCES Direccion(id),
+    CONSTRAINT FK_EMP_AREA FOREIGN KEY (id_area) REFERENCES Area(id),
+    CONSTRAINT FK_EMP_EQUICOMP FOREIGN KEY (id_equipo_computo) REFERENCES Equipo_de_computo(id),
+    CONSTRAINT FK_EMP_LIDER FOREIGN KEY (id_lider) REFERENCES lider(id)
+);
+
+CREATE TABLE Modulo(
+    id varchar(6) NOT NULL,
+    nombre varchar(10),
+    tipo varchar(10),
+    id_proyecto varchar(6) NOT NULL,
+    CONSTRAINT PK_MOD PRIMARY KEY (id),
+    CONSTRAINT FK_MOD_PROY FOREIGN KEY (id_proyecto) REFERENCES Proyecto(id)
+);
+
+CREATE TABLE Proveedor(
+    id varchar(6) NOT NULL,
+    nombre varchar(20),
+    sitio_web varchar(50),
+    descripcion varchar(30),
+    id_proyecto varchar(6),
+    CONSTRAINT PK_PROV PRIMARY KEY (id),
+    CONSTRAINT FK_PROV_PROY FOREIGN KEY (id_proyecto) REFERENCES Proyecto(id)
+);
+
+INSERT INTO equipo_de_computo (id,tipo,costo,marca) values ('E0', 'p',0,'NO');
+
+CREATE OR REPLACE TRIGGER delete_dir
+AFTER DELETE ON cliente
+FOR EACH ROW
+  DELETE FROM direccion
+   WHERE OLD.id_direccion = direccion.id;
+
+CREATE OR REPLACE TRIGGER delete_dir_two
+AFTER DELETE ON lider
+FOR EACH ROW
+  DELETE FROM direccion
+   WHERE OLD.id_direccion = direccion.id;
+
+CREATE OR REPLACE TRIGGER delete_pro
+BEFORE DELETE ON cliente
+FOR EACH ROW
+  DELETE FROM proyecto
+   WHERE OLD.id = proyecto.id_cliente;
+
+CREATE OR REPLACE TRIGGER delete_mod
+BEFORE DELETE ON proyecto
+FOR EACH ROW
+  DELETE FROM Modulo
+   WHERE OLD.id = Modulo.id_proyecto;
+
+CREATE OR REPLACE TRIGGER delete_prov
+BEFORE DELETE ON proyecto
+FOR EACH ROW
+  DELETE FROM proveedor
+   WHERE OLD.id = proveedor.id_proyecto;
+
+CREATE OR REPLACE TRIGGER delete_emp1
+BEFORE DELETE ON area
+FOR EACH ROW
+  DELETE FROM empleado
+   WHERE OLD.id = empleado.id_area;
+
+CREATE OR REPLACE TRIGGER delete_emp2
+BEFORE DELETE ON lider
+FOR EACH ROW
+  DELETE FROM empleado
+   WHERE OLD.id = empleado.id_lider;
+
+CREATE OR REPLACE TRIGGER delete_emp3
+BEFORE DELETE ON equipo_de_computo
+FOR EACH ROW
+  UPDATE empleado set id_equipo_computo = 'E0'
+   WHERE OLD.id = empleado.id_equipo_computo;

@@ -1,0 +1,156 @@
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Panel de control</h3>
+            <div class="text-center mx-auto">
+                <img src="../../assets/img/logo.png" alt="" class="text-center w-75">
+            </div>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li >
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Clientes</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a (click)="setState('altas','cliente')">Altas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('bajas','cliente')">Bajas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('cambios','cliente')">Cambios</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Proyectos</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu2">
+                    <li>
+                        <a (click)="setState('altas','proyecto')">Altas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('bajas','proyecto')">Bajas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('cambios','proyecto')">Cambios</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Empleados</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu3">
+                    <li>
+                        <a (click)="setState('altas','empleado')">Altas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('bajas','empleado')">Bajas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('cambios','empleado')">Cambios</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Áreas</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu4">
+                    <li>
+                        <a (click)="setState('altas','area')">Altas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('bajas','area')">Bajas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('cambios','area')">Cambios</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Equipos de cómputo</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu5">
+                    <li>
+                        <a (click)="setState('altas','equipo')">Altas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('bajas','equipo')">Bajas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('cambios','equipo')">Cambios</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Módulos</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu6">
+                    <li>
+                        <a (click)="setState('altas','modulo')">Altas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('bajas','modulo')">Bajas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('cambios','modulo')">Cambios</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Proveedores</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu7">
+                    <li>
+                        <a (click)="setState('altas','proveedor')">Altas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('bajas','proveedor')">Bajas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('cambios','proveedor')">Cambios</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#homeSubmenu8" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Lider</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu8">
+                    <li>
+                        <a (click)="setState('altas','lider')">Altas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('bajas','lider')">Bajas</a>
+                    </li>
+                    <li>
+                        <a (click)="setState('cambios','lider')">Cambios</a>
+                    </li>
+                </ul>
+            </li>
+            
+        </ul>
+    </nav>
+    <div id="content">
+
+        <ng-container *ngIf="this.table == 'cliente'">
+            <app-clientes [state] = this.state [list]=this.list></app-clientes>
+        </ng-container>
+        <ng-container *ngIf="this.table == 'proyecto'">
+            <app-proyectos [state] = this.state></app-proyectos>
+        </ng-container>
+        <ng-container *ngIf="this.table == 'area'">
+            <app-area [state] = this.state></app-area>
+        </ng-container>
+        <ng-container *ngIf="this.table == 'equipo'">
+            <app-equipo [state] = this.state></app-equipo>
+        </ng-container>
+        <ng-container *ngIf="this.table == 'modulo'">
+            <app-modulo [state] = this.state></app-modulo>
+        </ng-container>
+        <ng-container *ngIf="this.table == 'proveedor'">
+            <app-proveedor [state] = this.state></app-proveedor>
+        </ng-container>
+        <ng-container *ngIf="this.table == 'empleado'">
+            <app-empleado [state] = this.state [list]=this.list3></app-empleado>
+        </ng-container>
+        <ng-container *ngIf="this.table == 'lider'">
+            <app-lider [state] = this.state [list]=this.list2></app-lider>
+        </ng-container>
+
+    </div>
+</div>

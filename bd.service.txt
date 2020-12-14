@@ -1,0 +1,131 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class BDService {
+  baseUrl = 'http://localhost:8080/';
+  constructor(private http: HttpClient) { }
+
+  getTabla(tabla:string){
+    const body = new HttpParams()
+    .set('tabla',tabla);
+    return this.http.post(this.baseUrl+"getTabla", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+  insertRegistro(tabla:string ){
+    let body = new HttpParams()
+    .set("tabla", tabla)
+    .set('id', 'M1')
+    .set('nombre','apis')
+    .set('tipo','no enitnedo')
+    .set('id_pro','001')
+    return this.http.post(this.baseUrl+"insertRegistro", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+  insertDireccion(){
+    let body = new HttpParams()
+    .set("tabla", "direccion")
+    .set('calle','cynthia')
+    .set('fracc','Constitucion')
+    .set('numero','323')
+    .set('cd','Aguascalientes')
+    return this.http.post(this.baseUrl+"insertDireccion", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+  insertProyecto(){
+    let body = new HttpParams()
+    .set("tabla", "proyecto")
+    .set('id', '091')
+    .set('nombre','carnes')
+    .set('finicio','2020-01-24')
+    .set('fentrega','2020-01-24')
+    .set('presupuesto','5000')
+    .set('ganancia','3000')
+    .set('id_cliente','C9C');
+    return this.http.post(this.baseUrl+"insertProyecto", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+  insertCliente(){
+    let body = new HttpParams()
+    .set("tabla", "cliente")
+    .set('id', 'CCC')
+    .set('nombre','cynthia')
+    .set('tel','4498967')
+    .set('id_dir','1');
+    return this.http.post(this.baseUrl+"insertCliente", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+  insertLider(){
+    let body = new HttpParams()
+    .set("tabla", "lider")
+    .set('id', 'll3')
+    .set('nombre','juan')
+    .set('prima','perez')
+    .set('sega','delgado')
+    .set('sueldo','2000')
+    .set('tel','4492435')
+    .set('horario','matutino')
+    .set('id_dir','001')
+    return this.http.post(this.baseUrl+"insertLider", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+  insertEmpleado(){
+    let body = new HttpParams()
+    .set("tabla", "empleado")
+    .set('id', 'll4')
+    .set('nombre','maria')
+    .set('prima','perez')
+    .set('sega','delgado')
+    .set('sueldo','2000')
+    .set('tel','4492435')
+    .set('horario','matutino')
+    .set('id_dir','001')
+    .set('id_area','A1')
+    .set('id_eq','Eq1')
+    .set('id_lider','001')
+    return this.http.post(this.baseUrl+"insertEmpleado", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+  insertEquipo(){
+    let body = new HttpParams()
+    .set("tabla", "equipo_de_computo")
+    .set('id', 'Eq1')
+    .set('tipo','L')
+    .set('costo','300')
+    .set('marca','hp')
+    return this.http.post(this.baseUrl+"insertEquipo", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+
+
+  deleteRegistro(tabla:string, id:string){
+    let body= new HttpParams()
+    .set("tabla", tabla)
+    .set('id', id);
+    return this.http.post(this.baseUrl+"deleteRegistro", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+}
