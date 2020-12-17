@@ -1,0 +1,51 @@
+//Funcion que retorna la suma de las ganancias de todos los proyectos
+DELIMITER //
+CREATE or REPLACE FUNCTION GananciaTotal () RETURNS  int
+BEGIN
+DECLARE
+	g_total int;
+    SELECT SUM(proyecto.ganancia_estimada) total INTO g_total FROM proyecto;
+    RETURN g_total;
+END
+//
+
+//Funcion que retorna el 
+DELIMITER //
+CREATE or REPLACE FUNCTION  PorcentajeGan(id_proy varchar(6)) RETURNS  varchar(4)
+BEGIN
+DECLARE
+	porciento int;
+    SELECT (pro.ganancia_estimada*100/pro.presupuesto) Porcentaje INTO porciento FROM proyecto pro 
+    WHERE id_proy=pro.id;
+    RETURN CONCAT(CAST(porciento AS varchar(6)),'%') ;
+END
+//
+
+//Consulta ROLLUP
+SELECT e.id_area, SUM(e.sueldo) Total FROM empleado e GROUP BY e.id_area with ROLLUP
+
+
+//Vista en la que se tiene el nombre completo del usuario, id del equipo que utiliza, el precio, la marca y el tipo del equipo
+CREATE OR REPLACE VIEW Equipo AS
+SELECT CONCAT( emp.nombre," ",emp.primApe," ",emp.segApe) AS "Nombre Completo",eq.id "Id Equpio", eq.marca, eq.costo, 
+CASE eq.tipo
+    WHEN "L" THEN 'Laptop'
+    WHEN "P" THEN 'Computadora de Escritorio'
+    WHEN "S" THEN 'Servidor'
+        END AS Tipo
+FROM empleado emp, equipo_de_computo eq
+ WHERE emp.id_equipo_computo=eq.id
+
+
+//Vista en la que se muestra el código y nombre de los proyectos que
+//SI tengan proveedores registrados, ordenados por nombre de forma ascendente 
+CREATE OR REPLACE VIEW Proy_Prov AS
+SELECT DISTINCT proy.id, proy.nombre
+FROM proyecto proy, proveedor prov
+WHERE proy.id IN (
+SELECT proy.id FROM proyecto proy
+INTERSECT
+SELECT prov.id_proyecto FROM proveedor prov
+) AND
+proy.id = prov.id_proyecto
+ORDER BY proy.nombre ASC
