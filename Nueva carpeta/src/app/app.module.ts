@@ -15,6 +15,7 @@ import { ModuloComponent } from './modulo/modulo.component';
 import { ProveedorComponent } from './proveedor/proveedor.component';
 import { LiderComponent } from './lider/lider.component';
 import { EmpleadoComponent } from './empleado/empleado.component';
+import { ReportesComponent } from './reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EmpleadoComponent } from './empleado/empleado.component';
     ModuloComponent,
     ProveedorComponent,
     LiderComponent,
-    EmpleadoComponent
+    EmpleadoComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,

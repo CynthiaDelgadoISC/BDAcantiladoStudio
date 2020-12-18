@@ -85,8 +85,11 @@ app.post("/insertRegistro", (req, res) => {
 app.post("/insertProyecto", (req, res) => {
   connection.query(`INSERT INTO  ${req.body.tabla}  VALUES ("${req.body.id}","${req.body.nombre}","${req.body.finicio}","${req.body.fentrega}",${parseInt(req.body.presupuesto,10)},${parseInt(req.body.ganancia,10)},"${req.body.id_cliente}")`,
   function (error, results, fields) {
-    if (error) throw error;
-    res.send({sucess: true});
+    connection.query(`CALL insertAdmin("${req.body.id}","${req.body.id_lider}")`,
+    function (error2, results2, fields2) {
+      if (error2) throw error2;
+      res.send({sucess: true});
+    });
   });
 });
 
@@ -97,6 +100,15 @@ app.post("/updateProyecto", (req, res) => {
   if (error) throw error;
     res.send({sucess: true, results});
   });
+});
+
+
+app.post("/addAdministra", (req, res) => { 
+    connection.query(`CALL insertAdmin("${req.body.id_proy}","${req.body.id_lider}")`,
+    function (error2, results2, fields2) {
+      if (error2) throw error2;
+      res.send({sucess: true});
+    });
 });
 
 
@@ -231,6 +243,87 @@ app.post("/deleteRegistro", (req, res) => {
   connection.query('DELETE FROM '+ req.body.tabla+' WHERE id="'+req.body.id+'"', function (error, results, fields) {
   if (error) throw error;
   res.send({sucess: true});
+  });
+});
+
+app.post("/deleteAdminByProyecto", (req, res) => {
+  connection.query(`call deleteAdminByProyecto("${req.body.id_proy}") `, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true});
+  });
+});
+
+app.post("/deleteAdminByLider", (req, res) => {
+  connection.query(`call deleteAdminByLider("${req.body.id_lider}")`, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
+  });
+});
+
+app.post("/reporte1", (req, res) => {
+  connection.query(`SELECT DISTINCT e.*, a.nombre_area as 'area a la que pertenece' FROM empleado e, lider l ,area a ,proyecto p , administra ad
+  where  ad.id_proyecto="${req.body.id}" and ad.id_lider=l.id 
+  and e.id_lider=l.id and a.id=e.id_area`, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
+  });
+});
+
+app.post("/reporte2", (req, res) => {
+  connection.query(`SELECT DISTINCT l.* FROM cliente c, lider l, proyecto p, administra a 
+  WHERE c.id='${req.body.id}' and p.id_cliente=c.id and a.id_proyecto=p.id and a.id_lider=l.id
+  `, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true, results});
+  });
+});
+
+app.post("/reporte3", (req, res) => {
+  connection.query(`SELECT e.id_area, SUM(e.sueldo) Total FROM empleado e GROUP BY e.id_area with ROLLUP`, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
+  });
+});
+
+app.post("/reporte4", (req, res) => {
+  connection.query(`SELECT GananciaTotal() as total`, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
+  });
+});
+
+app.post("/reporte5", (req, res) => {
+  connection.query(`SELECT PorcentajeGan("${req.body.id_proy}") as Ganancia`, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
+  });
+});
+
+app.post("/reporte5", (req, res) => {
+  connection.query(`SELECT PorcentajeGan("${req.body.id_proy}") as Ganancia`, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
+  });
+});
+
+app.post("/vista1", (req, res) => {
+  connection.query(`SELECT * FROM Proy_Prov`, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
+  });
+});
+
+app.post("/vista2", (req, res) => {
+  connection.query(`SELECT * FROM muestra_empleado`, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
+  });
+});
+
+app.post("/vista3", (req, res) => {
+  connection.query(`SELECT * FROM Equipo `, function (error, results, fields) {
+  if (error) throw error;
+  res.send({sucess: true,results});
   });
 });
 

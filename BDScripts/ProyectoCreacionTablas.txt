@@ -45,8 +45,8 @@ CREATE TABLE Lider(
     id_proyecto varchar(6) NOT NULL,
     id_lider varchar(6) NOT NULL,
     CONSTRAINT PK_ADMIN PRIMARY KEY (id_proyecto, id_lider),
-    CONSTRAINT FK_ADMIN_LID FOREIGN KEY (id_lider) REFERENCES Proyecto(id),
-    CONSTRAINT FK_ADMIN_PROY FOREIGN KEY (id_proyecto) REFERENCES Lider(id)
+    CONSTRAINT FK_ADMIN_LID FOREIGN KEY (id_lider) REFERENCES Lider(id),
+    CONSTRAINT FK_ADMIN_PROY FOREIGN KEY (id_proyecto) REFERENCES Proyecto(id)
 );
 
 CREATE TABLE Area(
@@ -71,6 +71,7 @@ CREATE TABLE Empleado(
     sueldo int,
     telefono varchar(15),
     horario varchar(10),
+    RFC varchar(13),
     id_direccion int NOT NULL,
     id_area varchar(10) NOT NULL,
     id_equipo_computo varchar(10) NOT NULL,
@@ -150,3 +151,6 @@ BEFORE DELETE ON equipo_de_computo
 FOR EACH ROW
   UPDATE empleado set id_equipo_computo = 'E0'
    WHERE OLD.id = empleado.id_equipo_computo;
+
+
+ALTER TABLE empleado ADD UNIQUE RFC (RFC);

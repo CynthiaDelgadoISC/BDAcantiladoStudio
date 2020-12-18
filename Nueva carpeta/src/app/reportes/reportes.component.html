@@ -1,0 +1,171 @@
+<div class="w-100 p-5 text-white">
+    <h5>Empleados que trabajan en el proyecto y su área</h5>
+    <h5 for="exampleInputPassword1">Proyectos</h5>
+    <form class="form-group" [formGroup]="proyecto" (ngSubmit)="onSubmit(proyecto.value)" >
+        <select class="form-control" formControlName="proyectoss">
+          <option  *ngFor="let item of this.proyectos" value="{{item.id}}">{{item.nombre}}</option>
+        </select>
+        <input type="submit" value="Obtener reporte" class="btn btn-success">
+    </form>
+    <table class = "table table-sm table-dark text-white">
+        <thead>
+            <tr>
+                <th>Horario</th>
+                <th>Id</th>
+                <th>Id área</th>
+                <th>Id Equipo de cómputo</th>
+                <th>Id líder</th>
+                <th>Nombre</th>
+                <th>Primer apellido</th>
+                <th>Segundo apellido</th>
+                <th>Sueldo</th>
+                
+            </tr>
+        </thead>
+        <tr *ngFor="let item of this.resultados" >
+            <td>{{item.horario}}</td>
+            <td>{{item.id}}</td>
+            <td>{{item.id_area}}</td>
+            <td>{{item.id_equipo_computo}}</td>
+            <td>{{item.id_lider}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.primApe}}</td>
+            <td>{{item.segApe}}</td>
+            <td>{{item.sueldo}}</td>
+            <td>{{item.telefono}}</td>
+        </tr>
+    </table>    
+
+
+
+    <h5>Lider del proyecto de un cliente</h5>
+    <h5 for="exampleInputPassword1">Cliente</h5>
+    <form class="form-group" [formGroup]="cliente" (ngSubmit)="onSubmit2(cliente.value)" >
+        <select class="form-control" formControlName="id_cliente">
+          <option  *ngFor="let item of this.clientes" value="{{item.id}}">{{item.nombre}}</option>
+        </select>
+        <input type="submit" value="Obtener reporte" class="btn btn-success">
+    </form>
+    <table class = "table table-sm table-dark text-white">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Primer apellido</th>
+                <th>Segundo apellido</th>
+                <th>Sueldo</th>
+                <th>Telefono</th>
+                <th>Horario</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let item of this.resultados2" >
+            <td>{{item.nombre}}</td>
+            <td>{{item.primApe}}</td>
+            <td>{{item.segApe}}</td>
+            <td>{{item.sueldo}}</td>
+            <td>{{item.telefono}}</td>
+            <td>{{item.horario}}</td>
+        </tr>
+    </table>    
+
+
+    <h5>Suma del sueldo de los empleados por area</h5>
+    <button (click)="onSubmit3()"class="btn btn-success">Obtener Reporte</button>
+    <table class = "table table-sm table-dark text-white">
+        <thead>
+            <tr>
+                <th>ID Area</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let item of this.resultados3" >
+            
+            <td *ngIf="item.id_area != null">{{item.id_area}}</td>
+            <td *ngIf="item.id_area == null">Total</td>
+            <td>{{item.Total}}</td>
+        </tr>
+    </table>
+
+    <h5>Ganancias totales</h5>
+    <button (click)="onSubmit4()"class="btn btn-success">Obtener Reporte</button>
+    <table class = "table table-sm table-dark text-white">
+        <thead>
+            <tr>
+                <th>Ganancia Total</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let item of this.resultados4" >
+            <td>${{item.total}}</td>
+        </tr>
+    </table> 
+    
+    <h5>Ganancia por proyecto en porcentaje</h5>
+    <h5 for="exampleInputPassword1">Proyectos</h5>
+    <form class="form-group" [formGroup]="proyecto2" (ngSubmit)="onSubmit5(proyecto2.value)" >
+        <select class="form-control" formControlName="proyectoss">
+          <option  *ngFor="let item of this.proyectos" value="{{item.id}}">{{item.nombre}}</option>
+        </select>
+        <input type="submit" value="Obtener reporte" class="btn btn-success">
+    </form>
+    <table class = "table table-sm table-dark text-white">
+        <thead>
+            <tr>
+                <th>Ganancia</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let item of this.resultados5" >
+            <td>{{item.Ganancia}}</td>
+        </tr>
+    </table>
+
+    <h5>Proyectos con proveedores registrados</h5>
+    <button (click)="onSubmitVista1()"class="btn btn-success">Obtener Reporte</button>
+    <table class = "table table-sm table-dark text-white">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let item of this.resultadosVista1" >
+            <td>{{item.id}}</td>
+            <td>{{item.nombre}}</td>
+        </tr>
+    </table> 
+
+    <h5>Trabajadores por área</h5>
+    <button (click)="onSubmitVista2()"class="btn btn-success">Obtener Reporte</button>
+    <table class = "table table-sm table-dark text-white">
+        <thead>
+            <tr>
+                <th>Nombre Area</th>
+                <th>Empleados existentes</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let item of this.resultadosVista2" >
+            <td>{{item.nombre_area}}</td>
+            <td>{{item.empleados_Existentes}}</td>
+        </tr>
+    </table> 
+
+    <h5>Usuarios y equipos de cómputo</h5>
+    <button (click)="onSubmitVista3()"class="btn btn-success">Obtener Reporte</button>
+    <table class = "table table-sm table-dark text-white">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Id Equipo</th>
+                <th>Marca</th>
+                <th>Costo</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let item of this.resultadosVista3" >
+            <td>{{item.Nombre_Completo}}</td>
+            <td>{{item.Id_Equpio}}</td>
+            <td>{{item.marca}}</td>
+            <td>{{item.costo}}</td>
+            <td>{{item.Tipo}}</td>
+        </tr>
+    </table> 
+    
+</div>

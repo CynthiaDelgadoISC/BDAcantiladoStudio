@@ -1,0 +1,52 @@
+//Cursor para eliminar de administra por id de proyecto
+DELIMITER ;;
+CREATE OR REPLACE PROCEDURE deleteAdminByProyecto(id_proyecto_temp varchar(6))
+BEGIN
+DECLARE done BOOLEAN DEFAULT FALSE;
+DECLARE id_proy varchar(6);
+DECLARE id_lid varchar(6);
+DECLARE c1 cursor for SELECT id_proyecto,id_lider from administra WHERE administra.id_proyecto = id_proyecto_temp;
+DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = TRUE;
+open c1;
+REPEAT
+fetch c1 into id_proy,id_lid;
+        CALL deleteAdmin(id_proy,id_lid);
+UNTIL done
+END REPEAT;
+CLOSE c1;
+END ;;
+
+DELIMITER ;;
+CREATE OR REPLACE PROCEDURE deleteAdminByLider(id_lider_temp varchar(6))
+BEGIN
+DECLARE done BOOLEAN DEFAULT FALSE;
+DECLARE id_proy varchar(6);
+DECLARE id_lid varchar(6);
+DECLARE c1 cursor for SELECT id_proyecto,id_lider from administra WHERE administra.id_lider = id_lider_temp;
+DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = TRUE;
+open c1;
+REPEAT
+fetch c1 into id_proy,id_lid;
+        CALL deleteAdmin(id_proy,id_lid);
+UNTIL done
+END REPEAT;
+CLOSE c1;
+END
+
+
+
+//Procedimiento que inserta en adminstra
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE insertAdmin (IN proyect VARCHAR(10), IN lideer VARCHAR(10)) 
+BEGIN 
+INSERT INTO administra VALUES(proyect,lideer);
+END;
+
+
+
+//Procedimiento que elimina de adminstra
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE deleteAdmin (IN proyecto VARCHAR(10), IN lider VARCHAR(10)) 
+BEGIN 
+ DELETE FROM administra where administra.id_proyecto=proyecto AND administra.id_lider = lider;
+END;

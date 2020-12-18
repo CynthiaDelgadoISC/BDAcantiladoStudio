@@ -1,0 +1,10 @@
+
+/* que empleados de que area estan trabajando en un proyecto con id 'PR01'
+*/
+SELECT DISTINCT e.*, a.nombre_area as 'area a la que pertenece' FROM empleado e, lider l ,area a ,proyecto p , administra ad
+where  ad.id_proyecto="PR06" and ad.id_lider=l.id 
+and e.id_lider=l.id and a.id=e.id_area
+/* cual es el lider del proyecto de un cliente con id 'CL06'*/
+
+SELECT DISTINCT l.* FROM cliente c, lider l, proyecto p, administra a 
+WHERE c.id='CL06' and p.id_cliente=c.id and a.id_proyecto=p.id and a.id_lider=l.id

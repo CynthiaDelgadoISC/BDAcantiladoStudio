@@ -15,8 +15,13 @@ export class LiderComponent implements OnInit {
   lider: FormGroup;
   liderUpdate: FormGroup;
   direccion: FormGroup;
-  clientes: any;
-  constructor(private bd: BDService) { }
+  proyectoAdd: FormGroup;
+  proyectos: any;
+  constructor(private bd: BDService) { 
+    bd.getTabla('proyecto').subscribe(res =>{
+      this.proyectos = res['results'];;
+    });
+  }
 
   ngOnInit(): void {
     this.lider = new FormGroup({
@@ -44,6 +49,9 @@ export class LiderComponent implements OnInit {
       numero             : new FormControl(),
       ciudad             : new FormControl(),
     });
+    this.proyectoAdd = new FormGroup({
+      id_proy             : new FormControl(),
+    });
   }
 
   async onSubmit(data){ 
@@ -68,7 +76,7 @@ export class LiderComponent implements OnInit {
   }
 
   onDelete(id){
-    this.bd.deleteRegistro('lider',id).subscribe(resp =>{
+    this.bd.deleteLider(id).then(resp =>{
       if(resp['sucess']){
         Swal.fire({
           title: 'Eliminación exitosa',
@@ -80,7 +88,6 @@ export class LiderComponent implements OnInit {
           icon: 'error'
         })
       }
-        
     });
   }
 
@@ -127,6 +134,21 @@ export class LiderComponent implements OnInit {
         })
       }
     }
+  }
+  onSubmit3(data: Array<String>, id){
+    this.bd.addAdministra(data['id_proy'],id).subscribe(res => {
+      if(res['sucess']){
+        Swal.fire({
+          title: 'Se ha asignado el proyecto correctamente',
+          icon: 'success'
+        })
+      }else{
+        Swal.fire({
+          title: 'Ha habido un error',
+          icon: 'error'
+        })
+      }
+    });
   }
 
 }

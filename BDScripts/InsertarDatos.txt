@@ -14,12 +14,12 @@ INSERT INTO direccion VALUES(null,"Nietos","San marcos",651,"Aguascalientes");
 INSERT INTO direccion VALUES(null,"San felipe","Alta vista",306,"Jalisco");
 INSERT INTO direccion VALUES(null,"Santa julia","Rosedal",1002,"Guerrero");
 
-INSERT INTO cliente VALUES("CL01","Sithec","4495674323",15);
-INSERT INTO cliente VALUES("CL02","Taller RAI","4495674903",16);
-INSERT INTO cliente VALUES("CL03","Maglab","4481236721",17);
-INSERT INTO cliente VALUES("CL04","Sportwear","4492398546",18);
-INSERT INTO cliente VALUES("CL05","Carniceria dual","4485687921",19);
-INSERT INTO cliente VALUES("CL06","Ryse","4465664480",20);
+INSERT INTO cliente VALUES("CL01","Sithec","4495674323",1);
+INSERT INTO cliente VALUES("CL02","Taller RAI","4495674903",2);
+INSERT INTO cliente VALUES("CL03","Maglab","4481236721",3);
+INSERT INTO cliente VALUES("CL04","Sportwear","4492398546",4);
+INSERT INTO cliente VALUES("CL05","Carniceria dual","4485687921",5);
+INSERT INTO cliente VALUES("CL06","Ryse","4465664480",6);
 
 INSERT INTO proyecto VALUES("PR01","Sithec BD","2020-04-20","2020-06-20",50000,25000,"CL01");
 INSERT INTO proyecto VALUES("PR02","Sistema RAI","2020-06-12","2020-05-23",50900,30100,"CL02");
@@ -64,9 +64,9 @@ INSERT INTO modulo VALUES("MOD06","mod_e6.ts","salida","PR06");
 INSERT INTO proveedor VALUES("VED01","Firebase","Firebase.com", "Servicio de hosting", "PR01");
 INSERT INTO proveedor VALUES("VED02","Google Maps","GoogleMaps.com", "Servicio de localizacion", "PR04");
 
-INSERT INTO empleado VALUES("EMP01","Cynthia","Delgado","Campos",15000,4495398589,"Matutino",6,"A01","EQ01", "LID01");
-INSERT INTO empleado VALUES("EMP02","Miguel Angel","Gonzalez","Salas",13000,4495387645,"Matutino",7,"A01","EQ02", "LID01");
-INSERT INTO empleado VALUES("EMP03","Jose","Padilla","Guzman",10000,4498903456,"Matutino",8,"A02","EQ03", "LID02");
-INSERT INTO empleado VALUES("EMP04","Carla Andrea","Avila","Garcia",13500,4496783421,"Matutino",9,"A02","EQ06", "LID02");
-INSERT INTO empleado VALUES("EMP05","Edgar Andres","Ramirez","Ruiz",10000,4498096730,"Vespertino",10,"A03","EQ04", "LID03");
-INSERT INTO empleado VALUES("EMP06","Juan David","Ruiz","Campos",15000,4490021309,"Vespertino",11,"A01","EQ05", "LID03");
+INSERT INTO empleado VALUES("EMP01","Cynthia","Delgado","Campos",15000,4495398589,"Matutino","CYNTHIA123456",6,"A01","EQ01", "LID01");
+INSERT INTO empleado VALUES("EMP02","Miguel Angel","Gonzalez","Salas",13000,4495387645,"Matutino","MIGUEL2123456",7,"A01","EQ02", "LID01");
+INSERT INTO empleado VALUES("EMP03","Jose","Padilla","Guzman",10000,4498903456,"Matutino","JOSE289123456",8,"A02","EQ03", "LID02");
+INSERT INTO empleado VALUES("EMP04","Carla Andrea","Avila","Garcia",13500,4496783421,"Matutino","CARLA98123456",9,"A02","EQ06", "LID02");
+INSERT INTO empleado VALUES("EMP05","Edgar Andres","Ramirez","Ruiz",10000,4498096730,"Vespertino","EDGAR12123456",10,"A03","EQ04", "LID03");
+INSERT INTO empleado VALUES("EMP06","Juan David","Ruiz","Campos",15000,4490021309,"Vespertino","JUAN987612345",11,"A01","EQ05", "LID03");

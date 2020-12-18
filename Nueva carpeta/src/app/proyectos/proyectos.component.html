@@ -26,6 +26,11 @@
                 <option  *ngFor="let item of this.clientes" value="{{item.id}}">{{item.nombre}}</option>
               </select>
 
+              <h5 for="exampleInputPassword1">Líder</h5>
+              <select class="form-control" formControlName="lider">
+                <option  *ngFor="let item of this.lideres" value="{{item.id}}">{{item.nombre}}</option>
+              </select>
+
               <div class="text-center mx-auto">
                 <input type="submit" class="btn btn-primary" value="registrar">
               </div>

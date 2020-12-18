@@ -15,6 +15,7 @@ export class ProyectosComponent implements OnInit {
   proyecto: FormGroup;
   proyectoUpdate: FormGroup;
   clientes: any;
+  lideres: any;
 
   constructor(private bd: BDService) { 
     this.bd.getTabla('cliente').subscribe(resp => {
@@ -22,6 +23,9 @@ export class ProyectosComponent implements OnInit {
     });
     this.bd.getTabla('proyecto').subscribe(resp => {
       this.list = resp['results'];
+    });
+    this.bd.getTabla('lider').subscribe(resp => {
+      this.lideres = resp['results'];
     });
   }
 
@@ -34,6 +38,7 @@ export class ProyectosComponent implements OnInit {
       presupuesto        : new FormControl(),
       ganancia_estimada  : new FormControl(),
       id_cliente         : new FormControl(),
+      lider              : new FormControl(),
     });
     this.proyectoUpdate= new FormGroup({
       nombre             : new FormControl(),
@@ -67,7 +72,7 @@ export class ProyectosComponent implements OnInit {
   }
 
   onDelete(id){
-    this.bd.deleteRegistro('proyecto',id).subscribe(resp =>{
+    this.bd.deleteProyecto(id).then(resp =>{
       if(resp['sucess']){
         Swal.fire({
           title: 'Eliminación exitosa',

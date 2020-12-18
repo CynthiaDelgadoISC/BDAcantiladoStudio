@@ -1,15 +1,16 @@
+
 //Funcion que retorna la suma de las ganancias de todos los proyectos
 DELIMITER //
 CREATE or REPLACE FUNCTION GananciaTotal () RETURNS  int
 BEGIN
 DECLARE
 	g_total int;
-    SELECT SUM(proyecto.ganancia_estimada) total INTO g_total FROM proyecto;
+    SELECT SUM(proyecto.ganancia_estimada) as Total INTO g_total FROM proyecto;
     RETURN g_total;
 END
 //
 
-//Funcion que retorna el 
+//Funcion que retorna el porcentaje de ganancia de un proyecto 
 DELIMITER //
 CREATE or REPLACE FUNCTION  PorcentajeGan(id_proy varchar(6)) RETURNS  varchar(4)
 BEGIN
@@ -27,7 +28,7 @@ SELECT e.id_area, SUM(e.sueldo) Total FROM empleado e GROUP BY e.id_area with RO
 
 //Vista en la que se tiene el nombre completo del usuario, id del equipo que utiliza, el precio, la marca y el tipo del equipo
 CREATE OR REPLACE VIEW Equipo AS
-SELECT CONCAT( emp.nombre," ",emp.primApe," ",emp.segApe) AS "Nombre Completo",eq.id "Id Equpio", eq.marca, eq.costo, 
+SELECT CONCAT( emp.nombre," ",emp.primApe," ",emp.segApe) AS "Nombre_Completo",eq.id "Id_Equpio", eq.marca, eq.costo, 
 CASE eq.tipo
     WHEN "L" THEN 'Laptop'
     WHEN "P" THEN 'Computadora de Escritorio'
@@ -49,3 +50,12 @@ SELECT prov.id_proyecto FROM proveedor prov
 ) AND
 proy.id = prov.id_proyecto
 ORDER BY proy.nombre ASC
+
+
+/* view que devuelve cuantos trabajadores hay en cada area existente*/
+
+CREATE OR REPLACE VIEW 
+muestra_empleado AS 
+ SELECT a.nombre_area, COUNT(a.nombre_area) empleados_Existentes FROM area a, empleado e 
+ WHERE e.id_area=a.id
+ GROUP BY a.nombre_area

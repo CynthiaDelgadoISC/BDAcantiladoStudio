@@ -1,5 +1,6 @@
 import { BDService } from './../services/bd.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-crud',
@@ -14,9 +15,13 @@ export class CrudComponent implements OnInit {
   list2: Array<String>;
   list3: Array<String>;
   directionList: Array<String>;
-  constructor(private bd: BDService) { }
+  constructor(private bd: BDService, private route : ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goto(){
+    this.router.navigate(['reportes']);
   }
 
   async setState(state: String, table: String){

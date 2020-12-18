@@ -79,6 +79,7 @@
     </div>
 </ng-container>
 <ng-container  *ngIf="state == 'cambios'">
+
     <div *ngFor="let item of this.list">
         <form class="form-group text-white p-5" [formGroup]="liderUpdate" (ngSubmit)="onSubmit2(liderUpdate.value,item.id,item.id_direccion)" >
             
@@ -115,6 +116,16 @@
             <div class="text-center mx-auto">
               <input type="submit" class="btn btn-primary" value="registrar">
             </div>
+
+            <form class="form-group text-white p-5" [formGroup]="proyectoAdd" (ngSubmit)="onSubmit3(proyectoAdd.value,item.id)" >
+                <h5 for="exampleInputPassword1">Añadir a un proyecto</h5>
+                <select class="form-control" formControlName="id_proy">
+                    <option  *ngFor="let item of this.proyectos" value="{{item.id}}">{{item.nombre}}</option>
+                </select>
+                <div class="text-center mx-auto">
+                    <input type="submit" class="btn btn-primary" value="Añadir proyecto a lider">
+                  </div>
+            </form>
           </form>        
     </div>
 </ng-container>

@@ -105,12 +105,24 @@ export class BDService {
     .set('fentrega',data.fecha_entrega)
     .set('presupuesto',data.presupuesto)
     .set('ganancia',data.ganancia_estimada)
-    .set('id_cliente',data.id_cliente);
+    .set('id_cliente',data.id_cliente)
+    .set('id_lider',data.lider);
     return this.http.post(this.baseUrl+"insertProyecto", body.toString(),{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
+
+  addAdministra(id_proy,id_lider){
+    let body = new HttpParams()
+    .set("id_proy", id_proy)
+    .set('id_lider',id_lider);
+    return this.http.post(this.baseUrl+"addAdministra", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
   updateProyecto(id: string, data){
     const body = new HttpParams()
     .set('id',id)
@@ -299,8 +311,33 @@ export class BDService {
   }
 
 
+  async deleteLider(id:string){
+    let flag = false;
+    let body = new HttpParams()
+      .set('id_lider', id);
+      await this.http.post(this.baseUrl+"deleteAdminByLider", body.toString(),{
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+      }).toPromise().then(res => { flag = res['sucess']?true:false});
+      if(flag){
+        return this.deleteRegistro('lider',id).toPromise();
+      }
+  }
 
-  deleteRegistro(tabla:string, id:string){
+  async deleteProyecto(id:string){
+    let flag = false;
+    let body = new HttpParams()
+      .set('id_proy', id);
+      await this.http.post(this.baseUrl+"deleteAdminByProyecto", body.toString(),{
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+      }).toPromise().then(res => { flag = res['sucess']?true:false});
+      if(flag){
+        return this.deleteRegistro('proyecto',id).toPromise();
+      }
+  }
+
+   deleteRegistro(tabla:string, id:string){
     let body= new HttpParams()
     .set("tabla", tabla)
     .set('id', id);
@@ -309,4 +346,74 @@ export class BDService {
       .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
+
+  getReporte1(id:string){
+    console.log(id);
+    let body= new HttpParams()
+    .set('id', id);
+    return this.http.post(this.baseUrl+"reporte1", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+  getReporte2(id:string){
+    console.log(id);
+    let body= new HttpParams()
+    .set('id', id);
+    return this.http.post(this.baseUrl+"reporte2", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+  
+  getReporte3(){
+    let body= new HttpParams()
+    return this.http.post(this.baseUrl+"reporte3", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+  getReporte4(){
+    let body= new HttpParams()
+    return this.http.post(this.baseUrl+"reporte4", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+  getReporte5(id){
+    let body= new HttpParams()
+    .set('id_proy',id)
+    return this.http.post(this.baseUrl+"reporte5", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+  getVista1(){
+    let body= new HttpParams()
+    return this.http.post(this.baseUrl+"vista1", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+  getVista2(){
+    let body= new HttpParams()
+    return this.http.post(this.baseUrl+"vista2", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+  getVista3(){
+    let body= new HttpParams()
+    return this.http.post(this.baseUrl+"vista3", body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
 }
